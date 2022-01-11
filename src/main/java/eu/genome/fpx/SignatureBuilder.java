@@ -11,10 +11,34 @@ public class SignatureBuilder {
     private SignatureMode mode;
     private Instant instant;
     private double amount;
+    private long transactionId;
+    private String sessionId;
     private String currencyISO;
     private String orderId;
     private String userId;
     private String mcc;
+
+    /**
+     * Adds TRANSACTION ID value to builder.
+     *
+     * @param value TRANSACTION ID value.
+     * @return Builder instance.
+     */
+    public SignatureBuilder transactionId(long value) {
+        this.transactionId = value;
+        return this;
+    }
+
+    /**
+     * Adds SESSION ID value to builder.
+     *
+     * @param value SESSION ID value.
+     * @return Builder instance.
+     */
+    public SignatureBuilder sessionId(String value) {
+        this.sessionId = value;
+        return this;
+    }
 
     /**
      * Adds ORDER ID value to builder.
@@ -108,6 +132,8 @@ public class SignatureBuilder {
         }
 
         switch (mode) {
+            case CALLBACK:
+                return signatureGenerator.CALLBACK(sessionId, transactionId, amount, currencyISO, orderId);
             case MODE_A:
                 return signatureGenerator.MODE_A(amount, currencyISO, orderId, userId, mcc);
             case MODE_A_TS:

@@ -66,6 +66,45 @@ public class SignatureGenerator {
     }
 
     /**
+     * Constructs CALLBACK signature.
+     *
+     * @param sessionID     FPX/HPP session identifier.
+     * @param transactionID Transaction identifier.
+     * @param amount        Transaction amount.
+     * @param currencyISOA3 Transaction currency ISO.
+     * @param orderID       Order identifier, optional.
+     * @return Generated signature.
+     */
+    public String CALLBACK(
+            String sessionID,
+            long transactionID,
+            double amount,
+            String currencyISOA3,
+            String orderID
+    ) {
+        verifyAmount(amount, currencyISOA3);
+        if (sessionID == null || sessionID.isEmpty()) {
+            throw new IllegalArgumentException("Empty session ID");
+        }
+        if (transactionID == 0) {
+            throw new IllegalArgumentException("Empty transaction ID");
+        }
+
+        MessageDigest digest = getDigest();
+        digest.update(String.format(
+                Locale.ROOT,
+                "%s|%s|%s|%d|%.02f|%s",
+                secret,
+                sessionID,
+                orderID == null ? "" : orderID,
+                transactionID,
+                amount,
+                currencyISOA3
+        ).getBytes(StandardCharsets.UTF_8));
+        return toHex(digest.digest());
+    }
+
+    /**
      * Constructs MODE_A signature.
      *
      * @param amount        Transaction amount.

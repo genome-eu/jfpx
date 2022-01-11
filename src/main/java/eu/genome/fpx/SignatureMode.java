@@ -5,6 +5,11 @@ package eu.genome.fpx;
  */
 public enum SignatureMode {
     /**
+     * Signature for callbacks.
+     */
+    CALLBACK,
+
+    /**
      * Amount only signature.
      */
     MODE_A,

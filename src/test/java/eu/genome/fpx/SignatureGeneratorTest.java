@@ -8,6 +8,27 @@ import java.time.Instant;
 
 public class SignatureGeneratorTest {
     @DataProvider
+    public Object[][] dataProviderCALLBACK() {
+        return new Object[][]{
+                {"3403ee7cf309ce34f2201cdd986cf8858c009783c8096ad87019dce3a3eb66a5", "xxx-yyy-zzz", 12345, 0.99, "GBP", null},
+                {"b60f5f05c924d4ee4fabefcacb3df805f98526d685b24b160cdf0e9b0d6eb907", "xxx-yyy-zzz", 808, 14.99, "EUR", "#1223"}
+        };
+    }
+
+    @Test(dataProvider = "dataProviderCALLBACK")
+    public void testCALLBACK(
+            String expected,
+            String sessionID,
+            long transactionID,
+            double amount,
+            String currencyISOA3,
+            String orderID
+    ) {
+        SignatureGenerator generator = new SignatureGenerator("somesecret");
+        Assert.assertEquals(generator.CALLBACK(sessionID, transactionID, amount, currencyISOA3, orderID), expected);
+    }
+
+    @DataProvider
     public Object[][] dataProviderMODE_A() {
         return new Object[][]{
                 {"609170bb538b2800f205b1a4fccc3810e066c6150a42be9db50f0b6ede8b17d1", 19.99, "EUR", null, null, null},
