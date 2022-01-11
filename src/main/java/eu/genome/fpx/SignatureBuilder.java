@@ -126,4 +126,30 @@ public class SignatureBuilder {
     public String build(String secret) {
         return this.build(new SignatureGenerator(secret));
     }
+
+    /**
+     * Verifies given hash candidate.
+     *
+     * @param signatureGenerator Signature generator to use.
+     * @param candidate          Signature hash candidate.
+     * @return True if hash candidate is valid.
+     */
+    public boolean verify(SignatureGenerator signatureGenerator, String candidate) {
+        return candidate != null
+                && !candidate.isEmpty()
+                && candidate.trim().equalsIgnoreCase(build(signatureGenerator));
+    }
+
+    /**
+     * Verifies given hash candidate.
+     *
+     * @param secret    Application secret.
+     * @param candidate Signature hash candidate.
+     * @return True if hash candidate is valid.
+     */
+    public boolean verify(String secret, String candidate) {
+        return candidate != null
+                && !candidate.isEmpty()
+                && candidate.trim().equalsIgnoreCase(build(secret));
+    }
 }

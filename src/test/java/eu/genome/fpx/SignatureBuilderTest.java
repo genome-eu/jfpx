@@ -21,4 +21,18 @@ public class SignatureBuilderTest {
                 "2eec82d8857b5a08669411e993eaef194353248973f4f099f21c7819277a67e6"
         );
     }
+
+    @Test(dependsOnMethods = "testBuild")
+    public void testVerify() {
+        Assert.assertTrue(
+                new SignatureBuilder()
+                        .mode(SignatureMode.MODE_A_TS)
+                        .nonce(Instant.ofEpochSecond(32456789))
+                        .amount(4.99, Currency.getInstance("EUR"))
+                        .orderId("foo")
+                        .userId("bar")
+                        .mcc("baz")
+                        .verify("somesecret", " \t2EEc82d8857b5a08669411e993EAef194353248973f4f099f21c7819277a67e6\n")
+        );
+    }
 }
