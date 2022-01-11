@@ -1,6 +1,6 @@
 # Genome Financial Pixel
 
-[![Release](https://jitpack.io/v/mjcro/references.svg)](https://jitpack.io/#mjcro/references)
+[![Release](https://jitpack.io/v/genome-eu/jfpx.svg)](https://jitpack.io/#genome-eu/jfpx)
 
 General FPX/HPP signature generation reference implementation.
 
@@ -8,7 +8,28 @@ Compatible with any Java 8+ Server/Desktop/Android application. Zero dependencie
 
 # Distribution
 
-TBA
+Builds of this repository can be obtained from [JitPack](https://jitpack.io/#genome-eu/jfpx).
+
+Add JitPack repository:
+
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Then add dependency:
+
+```xml
+<dependency>
+    <groupId>com.github.genome-eu</groupId>
+    <artifactId>jfpx</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 # Prerequisites
 
